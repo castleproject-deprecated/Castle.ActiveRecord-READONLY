@@ -12,6 +12,7 @@
 	<property name="ar.connection.driver_class" value="NHibernate.Driver.SqlClientDriver" overwrite="false" />
 	<property name="ar.connection.connection_string.1" value="Server=(local);initial catalog=test;Integrated Security=SSPI" overwrite="false" />
 	<property name="ar.connection.connection_string.2" value="Server=(local);initial catalog=test2;Integrated Security=SSPI" overwrite="false" />
+	<property name="ar.query.factory_class" value="NHibernate.Hql.Ast.ANTLR.ASTQueryTranslatorFactory, NHibernate" overwrite="false" />
 
 	<fileset id="buildfiles.all">
 		<!-- Files have to be in dependency order -->
