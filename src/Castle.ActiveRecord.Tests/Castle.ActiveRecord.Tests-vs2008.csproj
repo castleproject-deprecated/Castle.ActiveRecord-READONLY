@@ -370,7 +370,7 @@
     <Compile Include="SessionScopeAutoflushTestCase.cs" />
     <Compile Include="Testing\CustomizationTest.cs" />
     <Compile Include="Testing\InitializationTest.cs" />
-    <Compile Include="Testing\NUnitInMemoryTest.cs" />
+    <Compile Include="NUnitInMemoryTest.cs" />
     <Compile Include="Validation\ARValidatorTestCase.cs" />
     <Compile Include="VerifyModelsAgainstDBSchemaTestCase.cs" />
     <Compile Include="LazyTestCase.cs" />
