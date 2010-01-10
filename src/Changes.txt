@@ -9,15 +9,22 @@
       <config db="MsSqlServer2005" csn="MyConnectionStringName"/>
     </activerecord>
   to get default configurations for different DBs (Sql Server, SQLite, Oracle, MySql and others)
+- Added defaults for PrimaryKeyType unless specified explicitly:
+    guid.comb for guids
+    assigned for strings
+    native otherwise
 
 - Bugs fixed:
+  AR-ISSUE-157
+  AR-ISSUE-180
+  AR-ISSUE-192
   AR-ISSUE-271
   AR-ISSUE-272
   AR-ISSUE-274
   AR-ISSUE-275
   AR-ISSUE-276
   AR-ISSUE-277
-  AR-ISSUE-278  
+  AR-ISSUE-278
 
 2.0 Beta1
 ===
