@@ -31,6 +31,7 @@
 		<include name="Castle.ActiveRecord.Linq.xml" />
 		<include name="Castle.Components.Validator.dll" />
 		<include name="Castle.Components.Validator.xml" />
+		<include name="Castle.Components.Validator.pdb" />
 		<include name="Castle.Core.dll" />
 		<include name="Castle.Core.xml" />
 		<include name="Castle.DynamicProxy2.dll" />
