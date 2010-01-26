@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>/home/patrick/tcagent/work/e8f3fdfa368f5de3/build/mono-3.5/release/Castle.Components.Validator</name>
+        <name>/home/patrick/tcagent/work/c406cee358537911/build/mono-3.5/release/Castle.Components.Validator</name>
     </assembly>
     <members>
         <member name="T:Castle.Components.Validator.AbstractCrossReferenceValidationAttributre">
