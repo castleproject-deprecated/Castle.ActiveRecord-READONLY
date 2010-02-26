@@ -6,8 +6,8 @@ AssemblyInfo.cs
 src/*/obj
 src/*/bin
 *.csproj.user
-*ReSharper*
-*resharper*
+_ReSharper*
+*ReSharper.*
 *.suo
 *.cache
 * Thumbs.db
