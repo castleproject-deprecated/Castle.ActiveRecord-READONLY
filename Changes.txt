@@ -1,16 +1,6 @@
-2.1.2
-=====
-- Official NHibernate 2.1.2.4000 used.
-- Bugs fixed:
-  AR-ISSUE-280
-
-
-2.1.1
-=====
-- Updated Castle Validator to 1.1.1
-
-2.1
+3.0 trunk
 ===
+- Updated Castle Validator to 1.1.1
 - Updated NHibernate to to 2.1.4
 - Updated Castle Core to 1.2
 - Updated Castle DynamicProcy to 2.2
@@ -24,6 +14,9 @@
     guid.comb for guids
     assigned for strings
     native otherwise
+- Added basic support for CpBT (see IConversation interface and tests for usage)
+- Added support for lazy="extra" by setting Lazy=true and ExtraLazy=true
+  (Patch by Eddie Cianci, AR-ISSUE-279)
 
 - Bugs fixed:
   AR-ISSUE-157
@@ -36,6 +29,7 @@
   AR-ISSUE-276
   AR-ISSUE-277
   AR-ISSUE-278
+  AR-ISSUE-280
 
 2.0 Beta1
 ===

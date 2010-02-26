@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <OutputPath>..\bin\temp\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -77,7 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Castle.ActiveRecord.Linq.Tests.build" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Castle.ActiveRecord.Linq\Castle.ActiveRecord.Linq-vs2008.csproj">
