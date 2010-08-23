@@ -200,7 +200,7 @@ limitations under the License.
 	
 
 	<!-- Use TeamCity's when running on the build server -->
-	<UsingTask TaskName="NUnitTeamCity" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)" Condition=" '$(TEAMCITY_VERSION)' != '' "/>
+	<UsingTask TaskName="NUnitTeamCity" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)" Condition=" '$(TEAMCITY_VERSION)' != '' " RuntimeVersion="v2.0"/>
 
 	<Target
 		Name="_ExecNUnit"
