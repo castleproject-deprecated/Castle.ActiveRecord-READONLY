@@ -16,30 +16,43 @@ REM ****************************************************************************
 
 IF NOT EXIST %~dp0..\Settings.proj GOTO msbuild_not_configured
 
-IF "%FrameworkVersion%" == "" SET FrameworkVersion=v2.0.50727
-IF "%Framework35Version%" == "" SET Framework35Version=v3.5
+REM Set Framework version based on passed in parameter
+IF "%1" == "" SET FrameworkVersion=v4.0
 
-REM Select the correct MSBuild version
-IF "%FrameworkVersion%" == "v2.0.50727" SET __MSBUILD_EXE__=%windir%\microsoft.net\framework\v3.5\msbuild.exe
-IF "%FrameworkVersion%" == "v4.0.30128" SET __MSBUILD_EXE__=%windir%\microsoft.net\framework\v4.0.30128\msbuild.exe
+IF "%1" == "NET40" (SET FrameworkVersion=v4.0)
+IF "%1" == "NET40" (SET BuildConfigKey=NET40)
 
-IF DEFINED CLICKTOBUILD GOTO quick
-IF "%~1" == "" GOTO quick
+IF "%1" == "NET40CP" (SET FrameworkVersion=v4.0)
+IF "%1" == "NET40CP" (SET BuildConfigKey=NET40CP)
 
-ECHO ON
-%__MSBUILD_EXE__% /m "%~dp0Build.proj" /p:TargetFrameworkVersion=%Framework35Version% %*
-@ECHO OFF
-@GOTO end
+IF "%1" == "NET35" (SET FrameworkVersion=v3.5)
+IF "%1" == "NET35" (SET BuildConfigKey=NET35)
 
-:quick
-IF "%FrameworkVersion%" == "v2.0.50727" SET __OUTDIR__=%~dp0..\build\.NETFramework-v3.5\Release\
-IF "%FrameworkVersion%" == "v4.0.21006" SET __OUTDIR__=%~dp0..\build\.NETFramework-v4.0\Release\
-ECHO ON
-%__MSBUILD_EXE__% /m "%~dp0Build.proj" /t:CleanAll;BuildProject /p:OutputPath=%__OUTDIR__% /p:Configuration=Release /p:Platform=AnyCPU /p:TargetFrameworkVersion=%Framework35Version%
-@ECHO OFF
-IF "%CLICKTOBUILD%" == "1" EXIT /B %ERRORLEVEL%
+IF "%1" == "SL3" (SET FrameworkVersion=v3.0)
+IF "%1" == "SL3" (SET BuildConfigKey=SL3)
 
-:end
+IF "%1" == "SL4" (SET FrameworkVersion=v4.0)
+IF "%1" == "SL4" (SET BuildConfigKey=SL4)
+
+REM Set the build target, if not specified set it to "Package" target.
+IF "%2" == "" (SET BuildTarget=RunAllTests) ELSE (SET BuildTarget=%2)
+
+REM Set the build configuration
+IF "%3" == "" (SET BuildConfiguration=Release) ELSE (SET BuildConfiguration=%3)
+
+REM Write variables to console
+echo Framework version is: %FrameworkVersion%
+echo Build Target is: %BuildTarget%
+echo Building configuration: %BuildConfiguration%
+
+REM Always uses the MSBuild 4.0
+SET __MSBUILD_EXE__=%windir%\microsoft.net\framework\v4.0.30319\msbuild.exe
+
+REM Call the MSBuild to build the project
+@echo on
+%__MSBUILD_EXE__% /m "%~dp0Build.proj" /property:BuildConfigKey=%BuildConfigKey% /p:TargetFrameworkVersion=%FrameworkVersion% /ToolsVersion:4.0  /property:Configuration=%BuildConfiguration% /t:%BuildTarget%
+@echo off
+
 IF %ERRORLEVEL% NEQ 0 GOTO err
 EXIT /B 0
 

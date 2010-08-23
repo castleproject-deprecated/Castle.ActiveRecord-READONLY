@@ -22,17 +22,76 @@ limitations under the License.
 -->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!--
+		Overridables properties
+	-->
+	<PropertyGroup>
+		<BuildConfigKey Condition="$(BuildConfigKey)==''">NET35</BuildConfigKey>
+		<Configuration Condition="$(Configuration)==''">Release</Configuration>
+		<TargetFrameworkProfile></TargetFrameworkProfile>
+	</PropertyGroup>
+
+
+	<!-- .NET 4.0 (default) -->
+	<PropertyGroup Condition="$(BuildConfigKey)=='NET40'">
+		<BuildFramework></BuildFramework>
+		<BuildConstants>DOTNET DOTNET40</BuildConstants>
+		<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+	</PropertyGroup>
+
+	<!-- .NET 4.0 Client Profile -->
+	<PropertyGroup Condition="$(BuildConfigKey)=='NET40CP'">
+		<BuildFramework>NET40CP</BuildFramework>
+		<BuildConstants>DOTNET DOTNET40 CLIENTPROFILE</BuildConstants>
+		<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+		<TargetFrameworkProfile>Client</TargetFrameworkProfile>
+	</PropertyGroup>
+
+	<!-- .NET 3.5 -->
+	<PropertyGroup Condition="$(BuildConfigKey)=='NET35'">
+		<BuildFramework>$(BuildConfigKey)</BuildFramework>
+		<BuildConstants>DOTNET DOTNET35</BuildConstants>
+		<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	</PropertyGroup>
+
+	<!-- Mono 2.6 -->
+	<PropertyGroup Condition="$(BuildConfigKey)=='MONO26'">
+		<BuildFramework>$(BuildConfigKey)</BuildFramework>
+		<BuildConstants>MONO MONO26</BuildConstants>
+		<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	</PropertyGroup>
+
+	<!--Silverlight 3.0 runtime-->
+	<PropertyGroup Condition="$(BuildConfigKey)=='SL3'">
+		<SolutionName>$(ProjectName)-SL</SolutionName>
+		<BuildFramework>$(BuildConfigKey)</BuildFramework>
+		<BuildConstants>SILVERLIGHT SL3</BuildConstants>
+		<MSBuildTargets>Silverlight 3.0</MSBuildTargets>
+		<TargetFrameworkVersion>3.0</TargetFrameworkVersion>
+		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+	</PropertyGroup>
+
+	<!--Silverlight 4.0 runtime-->
+	<PropertyGroup Condition="$(BuildConfigKey)=='SL4'">
+		<SolutionName>$(ProjectName)-SL</SolutionName>
+		<BuildFramework>$(BuildConfigKey)</BuildFramework>
+		<BuildConstants>SILVERLIGHT SL4</BuildConstants>
+		<MSBuildTargets>Silverlight 4.0</MSBuildTargets>
+		<TargetFrameworkVersion>4.0</TargetFrameworkVersion>
+	</PropertyGroup>
 
 	<!-- Project folders -->
 	<PropertyGroup>
 		<TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)' ==''">.NETFramework</TargetFrameworkIdentifier> <!-- MSBuild 4.0 defines this -->
-		<OutputPath Condition="'$(OutputPath)' == ''">$(RootPath)\build\$(TargetFrameworkIdentifier)-$(TargetFrameworkVersion)\$(Configuration)</OutputPath>
+		<BuildPath Condition="$(BuildPath)==''">$(RootPath)/build</BuildPath>
+		<OutputPath Condition="'$(OutputPath)' == ''">$(BuildPath)/$(BuildConfigKey)/$(Configuration)/bin/</OutputPath>
 		<OutputType Condition="'$(OutputType)' == ''">Library</OutputType>
-		<BuildScriptsPath Condition="'$(BuildScriptsPath)' ==''">$(RootPath)\buildscripts</BuildScriptsPath>
-		<ToolsPath Condition="'$(ToolsPath)' == ''">$(RootPath)\tools</ToolsPath>
-		<SolutionPath Condition="'$(SolutionPath)' == '' and '$(SolutionName)' != '' and $(TargetFrameworkVersion) == 'v3.5'">$(RootPath)\$(SolutionName)-vs2008.sln</SolutionPath>
-		<SolutionPath Condition="'$(SolutionPath)' == '' and $(TargetFrameworkVersion) == 'v3.5'">$(RootPath)\$(ProjectName)-vs2008.sln</SolutionPath>
-		<TestResultsPath Condition="'$(TestResultsPath)' == ''">$(OutputPath)\test-results</TestResultsPath>
+		<BuildScriptsPath Condition="'$(BuildScriptsPath)' ==''">$(RootPath)/buildscripts</BuildScriptsPath>
+		<ToolsPath Condition="'$(ToolsPath)' == ''">$(RootPath)/tools</ToolsPath>
+		<SolutionName Condition="'$(SolutionName)' == ''">$(ProjectName)</SolutionName>
+		<SolutionPath Condition="'$(SolutionPath)' == '' and '$(SolutionName)' != ''">$(RootPath)/$(SolutionName)-vs2010.sln</SolutionPath>
+		<SolutionPath Condition="'$(SolutionPath)' == ''">$(RootPath)/$(ProjectName)-vs2010.sln</SolutionPath>
+		<TestResultsPath Condition="'$(TestResultsPath)' == ''">$(OutputPath)/test-results</TestResultsPath>
 	</PropertyGroup>
 
 	
@@ -51,7 +110,7 @@ limitations under the License.
 	<!-- Signing Properties-->
 	<PropertyGroup>
 		<SignAssembly Condition="'$(SignAssembly)' == ''">true</SignAssembly>
-		<AssemblyOriginatorKeyFile>$(BuildScriptsPath)\CastleKey.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>$(BuildScriptsPath)/CastleKey.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
 	
@@ -60,6 +119,10 @@ limitations under the License.
 		<Project_Major Condition="'$(Project_Major)' == ''">1</Project_Major>
 		<Project_Minor Condition="'$(Project_Minor)' == ''">0</Project_Minor>
 		<Project_Build Condition="'$(Project_Build)' == ''">3</Project_Build>
+		
+		<!-- Picks up TeamCity's Build_Number property, or default to zero when not running under TeamCity -->
+		<Build_Number Condition="'$(Build_Number)' == ''">0</Build_Number>
+		<Build_Revision>$(Build_Number)</Build_Revision>
 	</PropertyGroup>
 
 	
@@ -78,9 +141,9 @@ limitations under the License.
 	
 	<!-- 3rd Party Program Paths -->
 	<PropertyGroup>
-		<NUnitPath Condition="'$(NUnitPath)' == ''">$(ToolsPath)\nunit\bin</NUnitPath>
-		<NCoverPath Condition="'$(NCoverPath)' == ''">$(ProgramFiles)\NCover</NCoverPath>
-		<MSBuildCommunityTasksPath Condition="'$(MSBuildCommunityTasksPath)' == ''">$(ToolsPath)\MSBuildCommunityTasks</MSBuildCommunityTasksPath>
+		<NUnitPath Condition="'$(NUnitPath)' == ''">$(ToolsPath)/nunit/bin</NUnitPath>
+		<NCoverPath Condition="'$(NCoverPath)' == ''">$(ProgramFiles)/NCover</NCoverPath>
+		<MSBuildCommunityTasksPath Condition="'$(MSBuildCommunityTasksPath)' == ''">$(ToolsPath)/MSBuildCommunityTasks</MSBuildCommunityTasksPath>
 	</PropertyGroup>
 
 	
@@ -94,14 +157,13 @@ limitations under the License.
 
 
 	<!-- Import 3rd party targets -->
-	<Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
+	<Import Project="$(MSBuildCommunityTasksPath)/MSBuild.Community.Tasks.Targets" />
 
 	
 	<!-- Updates the AssemblyInfo. The inputs are the same as the CoreCompileDependsOn target
 	to ensure that we only ever update the AssemblyInfo files if a compile is actually going to take place.-->
 	<Target
 		Name="UpdateAssemblyInfoFiles"
-		DependsOnTargets="GetBuildRevision" 
 		Inputs="$(MSBuildAllProjects);
 					@(Compile);
 					@(ManifestResourceWithNoCulture);
@@ -131,32 +193,7 @@ limitations under the License.
 	
 	</Target>
 
-	
-	<!-- Sets property $(Build_Revision)-->
-	<Target
-		Name="GetBuildRevision"
-		Inputs="$(MSBuildAllProjects);
-					@(Compile);
-					@(ManifestResourceWithNoCulture);
-					$(ApplicationIcon);
-					$(AssemblyOriginatorKeyFile);
-					@(ManifestNonResxWithNoCultureOnDisk);
-					@(ReferencePath);
-					@(CompiledLicenseFile);
-					@(EmbeddedDocumentation);                
-					@(CustomAdditionalCompileInputs)"
-		Outputs="@(IntermediateAssembly)"
-		>
-		
-		<PropertyGroup>
-			<Build_Revision Condition="'$(Build_Number)' == ''">0</Build_Revision>
-			<Build_Revision Condition="'$(Build_Number)' != ''">$(Build_Number)</Build_Revision>
-		</PropertyGroup>
-
-	</Target>
-
-
 	<!-- User targets can be run as the lastest -->
-	<Import Condition="Exists('$(RootPath)\Common.User.Targets')" Project="$(RootPath)\Common.User.Targets" />
+	<Import Condition="Exists('$(RootPath)/Common.User.Targets')" Project="$(RootPath)/Common.User.Targets" />
 
 </Project>
