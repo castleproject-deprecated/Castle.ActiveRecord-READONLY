@@ -26,7 +26,7 @@ limitations under the License.
 		Overridables properties
 	-->
 	<PropertyGroup>
-		<BuildConfigKey Condition="$(BuildConfigKey)==''">NET35</BuildConfigKey>
+		<BuildConfigKey Condition="$(BuildConfigKey)==''">NET40</BuildConfigKey>
 		<Configuration Condition="$(Configuration)==''">Release</Configuration>
 		<TargetFrameworkProfile></TargetFrameworkProfile>
 	</PropertyGroup>
