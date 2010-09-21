@@ -35,7 +35,7 @@ IF "%1" == "SL4" (SET FrameworkVersion=v4.0)
 IF "%1" == "SL4" (SET BuildConfigKey=SL4)
 
 REM Set the build target, if not specified set it to "Package" target.
-IF "%2" == "" (SET BuildTarget=RunAllTests) ELSE (SET BuildTarget=%2)
+IF "%2" == "" (SET BuildTarget=BuildAndPack) ELSE (SET BuildTarget=%2)
 
 REM Set the build configuration
 IF "%3" == "" (SET BuildConfiguration=Release) ELSE (SET BuildConfiguration=%3)

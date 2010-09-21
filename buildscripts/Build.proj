@@ -129,7 +129,7 @@ limitations under the License.
 	
 	<Target
 		Name="RunAllTests"
-		DependsOnTargets="BuildProject"
+		DependsOnTargets="RebuildAll"
 		>
 		
 		<CallTarget Targets="_ExecTestRunner" />
