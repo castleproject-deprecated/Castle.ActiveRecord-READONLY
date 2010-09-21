@@ -54,29 +54,22 @@ limitations under the License.
 		<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	</PropertyGroup>
 
-	<!-- Mono 2.6 -->
-	<PropertyGroup Condition="$(BuildConfigKey)=='MONO26'">
-		<BuildFramework>$(BuildConfigKey)</BuildFramework>
-		<BuildConstants>MONO MONO26</BuildConstants>
-		<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-	</PropertyGroup>
-
 	<!--Silverlight 3.0 runtime-->
 	<PropertyGroup Condition="$(BuildConfigKey)=='SL3'">
-		<SolutionName>$(ProjectName)-SL</SolutionName>
 		<BuildFramework>$(BuildConfigKey)</BuildFramework>
 		<BuildConstants>SILVERLIGHT SL3</BuildConstants>
 		<MSBuildTargets>Silverlight 3.0</MSBuildTargets>
+		<TestRunner_Enabled>False</TestRunner_Enabled>
 		<TargetFrameworkVersion>3.0</TargetFrameworkVersion>
 		<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
 	</PropertyGroup>
 
 	<!--Silverlight 4.0 runtime-->
 	<PropertyGroup Condition="$(BuildConfigKey)=='SL4'">
-		<SolutionName>$(ProjectName)-SL</SolutionName>
 		<BuildFramework>$(BuildConfigKey)</BuildFramework>
 		<BuildConstants>SILVERLIGHT SL4</BuildConstants>
 		<MSBuildTargets>Silverlight 4.0</MSBuildTargets>
+		<TestRunner_Enabled>False</TestRunner_Enabled>
 		<TargetFrameworkVersion>4.0</TargetFrameworkVersion>
 	</PropertyGroup>
 
@@ -98,7 +91,7 @@ limitations under the License.
 	<!-- AssemblyInfo Properties -->
 	<PropertyGroup>
 		<AssemblyInfoFile Condition="'$(AssemblyInfoFile)' == ''">AssemblyInfo.cs</AssemblyInfoFile>
-		<AssemblyTitle Condition="'$(AssemblyTitle)' == ''">$(ProjectName)</AssemblyTitle>
+		<AssemblyTitle Condition="'$(AssemblyTitle)' == ''">$(AssemblyName)</AssemblyTitle>
 		<AssemblyProduct Condition="'$(AssemblyProduct)' == ''">$(ProjectName)</AssemblyProduct>
 		<AssemblyDescription Condition="'$(AssemblyDescription)' != ''">$(AssemblyDescription)</AssemblyDescription>
 		<ComVisible Condition="'$(ComVisible)' == ''">false</ComVisible>
@@ -119,10 +112,6 @@ limitations under the License.
 		<Project_Major Condition="'$(Project_Major)' == ''">1</Project_Major>
 		<Project_Minor Condition="'$(Project_Minor)' == ''">0</Project_Minor>
 		<Project_Build Condition="'$(Project_Build)' == ''">3</Project_Build>
-		
-		<!-- Picks up TeamCity's Build_Number property, or default to zero when not running under TeamCity -->
-		<Build_Number Condition="'$(Build_Number)' == ''">0</Build_Number>
-		<Build_Revision>$(Build_Number)</Build_Revision>
 	</PropertyGroup>
 
 	
@@ -164,6 +153,7 @@ limitations under the License.
 	to ensure that we only ever update the AssemblyInfo files if a compile is actually going to take place.-->
 	<Target
 		Name="UpdateAssemblyInfoFiles"
+		DependsOnTargets="GetBuildRevision" 
 		Inputs="$(MSBuildAllProjects);
 					@(Compile);
 					@(ManifestResourceWithNoCulture);
@@ -192,6 +182,31 @@ limitations under the License.
 			/>
 	
 	</Target>
+
+	
+	<!-- Sets property $(Build_Revision)-->
+	<Target
+		Name="GetBuildRevision"
+		Inputs="$(MSBuildAllProjects);
+					@(Compile);
+					@(ManifestResourceWithNoCulture);
+					$(ApplicationIcon);
+					$(AssemblyOriginatorKeyFile);
+					@(ManifestNonResxWithNoCultureOnDisk);
+					@(ReferencePath);
+					@(CompiledLicenseFile);
+					@(EmbeddedDocumentation);                
+					@(CustomAdditionalCompileInputs)"
+		Outputs="@(IntermediateAssembly)"
+		>
+		
+		<PropertyGroup>
+			<Build_Number Condition="'$(Build_Number)' == ''">0</Build_Number>
+			<Build_Revision>$(Build_Number)</Build_Revision>
+		</PropertyGroup>
+
+	</Target>
+
 
 	<!-- User targets can be run as the lastest -->
 	<Import Condition="Exists('$(RootPath)/Common.User.Targets')" Project="$(RootPath)/Common.User.Targets" />
