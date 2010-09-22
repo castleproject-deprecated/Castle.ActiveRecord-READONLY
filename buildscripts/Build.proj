@@ -209,8 +209,14 @@ limitations under the License.
 		
 		<Exec Command="$(NUnitPath)/nunit-console-x86.exe /nologo @(TestAssemblies->'&quot;%(FullPath)&quot;', ' ') /xml=$(NUnitTestResultXmlFiles) /framework=$(FrameworkVersion)" Condition=" '$(TEAMCITY_VERSION)' == '' " />
 
+		<PropertyGroup>
+			<RuntimeVersion Condition="$(TargetFrameworkVersion) != 'v4.0'">v2.0</RuntimeVersion>
+			<RuntimeVersion Condition="$(TargetFrameworkVersion) == 'v4.0'">v4.0</RuntimeVersion>
+		</PropertyGroup>
+
 		<NUnitTeamCity
-			Assemblies="@(TestAssemblies->'&quot;%(FullPath)&quot;', ' ')"
+			Assemblies="@(TestAssemblies)"
+			RuntimeVersion="$(RuntimeVersion)"
 			NUnitVersion="NUnit-2.5.5"
 			Condition=" '$(TEAMCITY_VERSION)' != '' "
 		/>
