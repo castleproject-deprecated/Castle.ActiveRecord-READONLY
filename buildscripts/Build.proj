@@ -192,6 +192,7 @@ limitations under the License.
 		<Exec Command="$(MonoShell) $(teamcity_dotnet_nunitlauncher) mono-2.0 x86 NUnit-2.5.5 $(OutputPath)Castle.Core.Tests.dll" Condition="$(MonoShell) != ''" />
 
 		<NUnitTeamCity
+			RuntimeVersion="$(RuntimeVersion)"
 			Assemblies="@(TestAssemblies)"
 			NUnitVersion="NUnit-2.5.5"
 			Condition=" '$(teamcity_dotnet_nunitlauncher_msbuild_task)' != ''"
