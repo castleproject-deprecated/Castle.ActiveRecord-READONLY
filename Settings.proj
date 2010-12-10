@@ -48,8 +48,10 @@ limitations under the License.
 		in addition to automatically detected dependencies.
 		The items are resolved relative to $(OutputPath)
 		-->
-		<PackageFiles Include="$(OutputPath)NHibernate*.dll" />
-		<PackageFiles Include="$(OutputPath)Iesi*.dll" />
+		<PackageFiles Include="$(OutputPath)NHibernate.dll" />
+		<PackageFiles Include="$(OutputPath)NHibernate.Search.dll" />
+		<PackageFiles Include="$(OutputPath)NHibernate.ByteCode.Castle.dll" />
+		<PackageFiles Include="$(OutputPath)Iesi.Collections.dll" />
 		<PackageFiles Include="$(OutputPath)Remotion.Data.Linq.dll" />
 		<PackageFiles Include="$(OutputPath)log4net.dll" />
 		<PackageFiles Include="$(OutputPath)Antlr3.Runtime.dll" />
