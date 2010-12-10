@@ -1,4 +1,21 @@
-3.0 trunk
+3.0 beta (2010-12-10)
+===
+- Updated Castle Validator to 2.5.0
+- Updated NHibernate to to 3.0 ga
+- Updated Castle Core to 2.5.2 (Includes DynamicProxy)
+  
+- Implemented support for NHibernate Discriminator Formula (AR-166)
+- Optimistic Lock Support(AR-290)
+- Support for NET40 Client Profile
+- Included NET40 and NET40 CP binaries on the release package
+- Merged the Castle.ActiveRecord.Linq into the Castle.ActiveRecord project. (Out of the box LINQ support)
+
+- Fixed: SaveCopyAndFlush() method in ActiveRecordMediator.cs returns null, but should return object (AR-282)
+- Fixed: Formula BUG on property in ActiveRecord with NHibernate 3  (AR-293)
+
+- Breaking: Now the SessionScopeWebModule, HybridWebThreadScopeInfo and WebThreadScopeInfo were moved to the Castle.ActiveRecord.Web assembly.
+
+2.1 
 ===
 - Updated Castle Validator to 1.1.1
 - Updated NHibernate to to 2.1.4
