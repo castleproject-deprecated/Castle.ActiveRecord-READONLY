@@ -3,6 +3,8 @@
 - Updated NHibernate.Search to NH3 compatible release
 - Updated Lucene.net to 2.9.2
 
+- Added the support for Field Camelcase Underscore (AR-296)
+
 3.0 beta (2010-12-10)
 ===
 - Updated Castle Validator to 2.5.0
