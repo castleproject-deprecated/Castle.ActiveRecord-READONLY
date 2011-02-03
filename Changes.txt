@@ -1,9 +1,10 @@
-3.0
+ï»¿3.0
 ===
 - Updated NHibernate.Search to NH3 compatible release
 - Updated Lucene.net to 2.9.2
 
 - Added the support for Field Camelcase Underscore (AR-296)
+- Lazy loading for blob properties
 
 3.0 beta (2010-12-10)
 ===
@@ -13,7 +14,7 @@
   
 - Implemented support for NHibernate Discriminator Formula (AR-166)
 - Optimistic Lock Support(AR-290)
-- Support for NET40 Client Profile
+- Support for NET40 Client Profile (AR-289)
 - Included NET40 and NET40 CP binaries on the release package
 - Merged the Castle.ActiveRecord.Linq into the Castle.ActiveRecord project. (Out of the box LINQ support)
 
@@ -200,7 +201,7 @@ Release Candidate 2
  
 - Added the CompositeUserTypeAttribute and allowed the use of NHibernate's ICompositeUserType (AR-128)
 
-- Applied the Marc-André's tests patch (AR-136).
+- Applied the Marc-Andrï¿½'s tests patch (AR-136).
 
 - Applied Simon Laroche's patch fixing AR-141
   "Support for NHibernate nested-composite-element"
@@ -458,7 +459,7 @@ Release Candidate 1
   
   Added Persister property to ActiveRecordAttribute
 
-- Applied Marc-André's patch fixing AR-79
+- Applied Marc-Andrï¿½'s patch fixing AR-79
   "ValidateIsUnique not working with TransactionScope"
 
 - Added XmlIgnore to IDictionary field on ARValidationBase
@@ -505,7 +506,7 @@ Release Candidate 1
 	
   The old way is still supported though.
 
-- Applied Freyr Magnússon's patch fixing AR-75 
+- Applied Freyr Magnï¿½sson's patch fixing AR-75 
   "SemanticVerifierVisitor causing fauly xml when using composit key"
 
 - Added support for "ColumnPrefix" on [Nested] attribute. This change allows
@@ -542,7 +543,7 @@ Release Candidate 1
 
 - Applied patch from josh robb - FindAllByProperty now handles null values internallly.
 
-- Applied Freyr Magnússon's patch fixing misbehave related to abstract classes that defines different
+- Applied Freyr Magnï¿½sson's patch fixing misbehave related to abstract classes that defines different
   database boundaries: "ActiveRecordStarter Initialize method assembply overloads fail 
   to add derived base types from config"
 
@@ -874,7 +875,7 @@ Version 0.0.1.2
 Version 0.0.1.1
 ===============
   
-  Applied patch from Luiz César Kuriki <luizck@gmail.com> in order to support NHibernate's Component feature
+  Applied patch from Luiz Cï¿½sar Kuriki <luizck@gmail.com> in order to support NHibernate's Component feature
   
   Applied modification suggested by Andrew Hallock and Craig Neuwirt in order to support HasOne relations.
 
