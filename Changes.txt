@@ -4,7 +4,8 @@
 - Updated Lucene.net to 2.9.2
 
 - Added the support for Field Camelcase Underscore (AR-296)
-- Lazy loading for blob properties
+- Lazy loading for blob properties 
+- Foreign Key for HasAndBelongsToMany (AR-288)
 
 3.0 beta (2010-12-10)
 ===
