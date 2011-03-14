@@ -5,7 +5,7 @@
 
 	Project Settings file for VS and external build files
 
-Copyright 2004-2010 Castle Project - http://www.castleproject.org/
+Copyright 2004-2011 Castle Project - http://www.castleproject.org/
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -52,7 +52,6 @@ limitations under the License.
 		<PackageFiles Include="$(OutputPath)NHibernate.Search.dll" />
 		<PackageFiles Include="$(OutputPath)NHibernate.ByteCode.Castle.dll" />
 		<PackageFiles Include="$(OutputPath)Iesi.Collections.dll" />
-		<PackageFiles Include="$(OutputPath)Remotion.Data.Linq.dll" />
 		<PackageFiles Include="$(OutputPath)log4net.dll" />
 		<PackageFiles Include="$(OutputPath)Antlr3.Runtime.dll" />
 	</ItemGroup>
