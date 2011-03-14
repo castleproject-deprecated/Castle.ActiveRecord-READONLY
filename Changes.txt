@@ -1,11 +1,13 @@
 ﻿3.0
 ===
+- Updated NHibernate to to 3.1.0 ga
 - Updated NHibernate.Search to NH3 compatible release
 - Updated Lucene.net to 2.9.2
 
 - Added the support for Field Camelcase Underscore (AR-296)
 - Lazy loading for blob properties 
 - Foreign Key for HasAndBelongsToMany (AR-288)
+- Added support for scope less lazy loading (AR-297). Very usefull for desktop applications.
 
 3.0 beta (2010-12-10)
 ===
