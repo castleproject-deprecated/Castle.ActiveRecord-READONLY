@@ -53,7 +53,6 @@ limitations under the License.
 		<PackageFiles Include="$(OutputPath)NHibernate.ByteCode.Castle.dll" />
 		<PackageFiles Include="$(OutputPath)Iesi.Collections.dll" />
 		<PackageFiles Include="$(OutputPath)log4net.dll" />
-		<PackageFiles Include="$(OutputPath)Antlr3.Runtime.dll" />
 	</ItemGroup>
 
 	<!-- Import framework version specific settings, like Settings-v3.5 or Settings-v4.0 -->
