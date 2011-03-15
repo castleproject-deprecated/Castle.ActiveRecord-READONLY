@@ -1,4 +1,4 @@
-﻿3.0
+﻿3.0 RC (2011-03-14)
 ===
 - Updated NHibernate to to 3.1.0 ga
 - Updated NHibernate.Search to NH3 compatible release
